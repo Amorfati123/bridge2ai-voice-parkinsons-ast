@@ -1,61 +1,103 @@
-# bridge2ai-voice-parkinsons-ast
+# Audio Spectrogram Transformers for Voice-Based Disease Detection
 
-This repository contains experimental notebooks for voice-based disease detection studies using the **Bridge2AI Voice dataset** and a **pretrained Audio Spectrogram Transformer (AST)**.
+**Task-Specific Biomarkers Across Neurological and Psychiatric Conditions**
 
-The work investigates whether structured voice tasks encode reproducible acoustic signatures of neurological, psychiatric, and cognitive conditions. All experiments enforce **strict participant-level validation** to prevent data leakage and to reflect realistic clinical generalization. Multiple cohort selection and modeling strategies are explored to understand the effects of task choice, class imbalance, and evaluation thresholds on downstream performance.
+## Overview
+
+This repository contains the code and analysis for a study evaluating a unified pretrained Audio Spectrogram Transformer (AST) pipeline for participant-level speech-based screening across three clinically distinct conditions - **Parkinson's disease (PD)**, **dementia**, and **depression** - using the [Bridge2AI Voice Dataset (v2.0.0)](https://physionet.org/content/b2ai-voice/2.0.0/).
+
+The same architecture, preprocessing, training procedure, and evaluation protocol are applied to all three conditions. The study demonstrates that screening performance depends critically on **speech task selection** rather than model-level modifications, positioning task design as a condition-dependent decision for clinical deployment.
+
+All metrics are participant-level, evaluated under five-fold stratified cross-validation with strict participant-level separation. Standard deviations use `ddof=1` (sample SD).
+
+## Repository Structure
+
+```
+├── PD_AST_selected_tasks_Spectrograms___Metadata_eval.ipynb
+│       Primary PD analysis (9 selected tasks) + metadata late-fusion evaluation
+│
+├── PD_AllTasks_AST_Spectrograms.ipynb
+│       PD sensitivity analysis using all 49 tasks (≥100-frame filter)
+│
+├── Dementia_AST_selected_tasks_Spectrograms.ipynb
+│       Primary dementia (Alzheimer's / MCI) analysis
+│
+├── Depression_AST_selected_tasks_Spectrograms.ipynb
+│       Primary depression analysis
+│
+├── requirements.txt              # Pinned package versions for reproducibility
+├── LICENSE
+└── README.md
+```
 
 ## Notebooks
 
-### 1. AST_selected_tasks_Spectrograms_PD.ipynb
-Primary workflow for Parkinson’s disease detection using a curated subset of structured speech tasks with higher disease prevalence. This notebook:
-- Applies fixed-length spectrogram preprocessing
-- Fine-tunes a pretrained Audio Spectrogram Transformer
-- Reports **5-fold participant-level cross-validation** results
+### PD Selected Tasks + Metadata Evaluation
+**`PD_AST_selected_tasks_Spectrograms___Metadata_eval.ipynb`**
 
-This notebook serves as the main reference experiment.
+Primary Parkinson's disease experiment using 9 high-prevalence structured speech tasks. Includes the full pipeline (preprocessing → training → 5-fold CV → OOF evaluation → publication figures), plus a metadata late-fusion analysis evaluating whether age and sex provide complementary signal beyond voice. Also generates the task selection comparison figure (Selected vs All Tasks) and per-fold AUC strip plot.
 
----
+### PD All Tasks
+**`PD_AllTasks_AST_Spectrograms.ipynb`**
 
-### 2. Metadata_AST_selected_tasks_Spectrograms_PD.ipynb
-Extension of the Parkinson’s disease workflow incorporating **participant-level metadata (age and sex)** via late fusion (soft voting). This notebook evaluates whether demographic variables provide complementary signal beyond voice alone.
+Sensitivity analysis using all available tasks with a ≥100-frame minimum length filter. Uses a different class weighting scheme (`[1.0, neg/pos]`), no learning rate scheduler, and a relaxed early stopping threshold (`1e-6`). These differences from the primary pipeline are documented in the manuscript.
 
----
+### Dementia Selected Tasks
+**`Dementia_AST_selected_tasks_Spectrograms.ipynb`**
 
-### 3. AllTasks_AST_selected_tasks_Spectrograms_PD.ipynb
-Ablation experiment using **all available voice tasks** with a minimum recording-length constraint. This notebook evaluates whether AST performance generalizes across heterogeneous task types under substantial class imbalance.
+Voice-based dementia detection using 9 tasks emphasizing memory, lexical retrieval, and executive function. Shows the strongest overall performance, consistent with the hypothesis that cognitive impairment produces robust task-consistent vocal changes.
 
----
+### Depression Selected Tasks
+**`Depression_AST_selected_tasks_Spectrograms.ipynb`**
 
-### 4. depression_AST_selected_tasks_Spectrograms.ipynb
-Voice-based **depression detection** workflow following the same modeling and validation protocol as the Parkinson’s experiments.  
-Key features:
-- Selection of **high-prevalence, language-heavy tasks** (e.g., Animal Fluency, Open Response Questions)
-- Balanced participant cohort with near-equal positive/negative samples
-- **5-fold participant-level cross-validation** with out-of-fold evaluation
-- Analysis of threshold sensitivity and operating-point tradeoffs
+Voice-based depression detection using 2 cognitive-linguistic tasks. A balanced cohort with near-equal positive/negative samples. Performance suggests depression-related vocal signatures are subtler than neurological conditions.
 
-This experiment demonstrates stronger and more stable performance than respiratory conditions, suggesting that **cognitive–linguistic tasks encode clearer depressive vocal signatures**.
+## Dataset
 
----
+This study uses the [Bridge2AI Voice Dataset v2.0.0](https://physionet.org/content/b2ai-voice/2.0.0/), which provides log-Mel spectrograms (201 Mel bins, variable time frames) and participant-level phenotype data for 442 participants across multiple speech tasks.
 
-### 5. dementia_AST_selected_tasks_Spectrograms.ipynb
-Voice-based **dementia (Alzheimer’s / MCI)** detection workflow using the same AST pipeline.  
-Key features:
-- Task selection emphasizing **memory, lexical retrieval, and executive function** (e.g., Productive Vocabulary, Random Item Generation, Cinderella Story)
-- Moderate class imbalance handled via balanced sampling and focal loss
-- **Participant-level 5-fold cross-validation** with both per-fold and out-of-fold evaluation
-- Analysis of threshold variability and clinical operating points
+**Access:** The dataset requires credentialed access through PhysioNet. Follow the instructions on the dataset page to obtain access.
 
-This notebook shows the strongest overall performance, consistent with the hypothesis that **cognitive impairment produces robust and task-consistent vocal changes**.
+**Expected data path:** `/data0/b2ai-voice/2.0.0/` - modify paths in each notebook's data-loading cell if your setup differs.
 
----
+## Pipeline Summary
 
-## Key Methodological Features
+1. **Task Selection:** Condition-specific high-prevalence subsets (9 tasks for PD/dementia, 2 for depression)
+2. **Preprocessing:** Temporal standardization (reflect-pad / center-crop to 1024 frames) → frequency resize (201 → 128 Mel bins) → fold-specific z-score normalization
+3. **Model:** Pretrained AST (`MIT/ast-finetuned-audioset-10-10-0.4593`) with full fine-tuning, ~86.4 M parameters
+4. **Training:** Focal loss with dynamic per-fold inverse class-frequency weights, AdamW with differential learning rates (backbone 5 × 10⁻⁶, head 5 × 10⁻⁴), cosine annealing, SpecAugment (time mask 50-150, frequency mask 10-30), early stopping on composite AUC + F1 score
+5. **Evaluation:** Participant-level 5-fold stratified CV, out-of-fold (OOF) aggregation, threshold optimization via Youden's J, 95% confidence intervals with `ddof=1`
 
-- Strict participant-level train/test splits and cross-validation
-- Fixed-length spectrogram preprocessing with padding and cropping
-- Fine-tuning of a pretrained Audio Spectrogram Transformer (AST)
-- Balanced sampling and focal loss to address class imbalance
-- Participant-level aggregation of predictions across tasks
-- Explicit analysis of threshold selection, operating points, and out-of-fold performance
-- Comparative evaluation across neurological, psychiatric, and cognitive conditions
+## Reproducibility
+
+Every notebook begins with a deterministic seed cell:
+
+```python
+import torch, random, numpy as np
+torch.manual_seed(42)
+torch.cuda.manual_seed_all(42)
+np.random.seed(42)
+random.seed(42)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+```
+
+**Note:** Minor numerical variation may still occur across GPU hardware and CUDA versions. The PD Selected Tasks notebook saves OOF predictions (`.npz`) and fold models (`.pt`), which downstream cells (metadata evaluation, figures) load to avoid re-training discrepancies.
+
+## Installation
+
+```bash
+pip install -r requirements.txt
+```
+
+## Citation
+
+```
+Shukla S, Naliyatthaliyazchayil P, Gichoya J, Purkayastha S. Audio Spectrogram Transformers
+for Voice-Based Disease Detection: Task-Specific Biomarkers Across Neurological and
+Psychiatric Conditions. 2026.
+```
+
+## License
+
+This project is for research purposes. See [LICENSE](LICENSE) for details. The Bridge2AI Voice Dataset is subject to its own [data use agreement](https://physionet.org/content/b2ai-voice/2.0.0/).
