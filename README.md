@@ -58,8 +58,6 @@ This study uses the [Bridge2AI Voice Dataset v2.0.0](https://physionet.org/conte
 
 **Access:** The dataset requires credentialed access through PhysioNet. Follow the instructions on the dataset page to obtain access.
 
-**Expected data path:** `/data0/b2ai-voice/2.0.0/` - modify paths in each notebook's data-loading cell if your setup differs.
-
 ## Pipeline Summary
 
 1. **Task Selection:** Condition-specific high-prevalence subsets (9 tasks for PD/dementia, 2 for depression)
