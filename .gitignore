@@ -1,0 +1,95 @@
+# ── Model weights & checkpoints ──────────────────────────────────────
+*.pt
+*.npz
+*_ckpts/
+fold_checkpoints/
+fold_metrics/
+patchtst_fold_metrics/
+splits/
+
+# ── Large data files ─────────────────────────────────────────────────
+*.parquet
+*.tsv
+*.xlsx
+cleaned*.csv
+agg_*.csv
+DE_UID.csv
+example*.csv
+res_sorted.csv
+dhis2_import_file_new*.csv
+cleaned_file_import.csv
+phenotype.tsv
+asthma_combo_AUC_CNN_rank.csv
+best_patchtst_revin_full_cfg.json
+
+# ── Prediction / OOF CSVs ───────────────────────────────────────────
+val_participant_predictions*.csv
+rf_val_*.csv
+patchtst_val_*.csv
+oof_participant_predictions.csv
+oof_summary/
+
+# ── Jupyter ──────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+
+# ── System / user profile ───────────────────────────────────────────
+.cache/
+.local/
+.ipython/
+.jupyter/
+.nv/
+.links2/
+nltk_data/
+.bash*
+.profile
+
+# ── LaTeX build artifacts ────────────────────────────────────────────
+*.aux
+*.log
+*.out
+*.toc
+
+# ── Logs ─────────────────────────────────────────────────────────────
+N1_output.log
+N2_output.log
+
+# ── Virtual environments ─────────────────────────────────────────────
+patchtst_env/
+
+# ── Manuscript drafts (track .tex source, not binary builds) ────────
+*.docx
+*.pdf
+
+# ── Planning / review docs ───────────────────────────────────────────
+PLAN_*.md
+REVIEW_*.md
+MANUSCRIPT_REVISIONS.md
+
+# ── Untracked figures at repo root (tracked figures live in figures/) ─
+/attention_*.png
+/fft_preprocessing_example.png
+/fig_*.png
+/figure6_*.png
+/pd_classification_results.png
+/pooling_*.png
+/preprocessing_pipeline*.png
+/spectrogram_visualization*.png
+/time_distribution.png
+/viz_*.png
+/attention_difference_maps.pdf
+
+# ── Standalone helper scripts ────────────────────────────────────────
+/main.py
+/main4students.py
+
+# ── Misc unrelated projects & scratch ────────────────────────────────
+Untitled*/
+personal project/
+IOH project/
+CIMDAR-HIVE*/
+Multidisciplinary HI/
+mimic_tableau/
+apply_revisions.py
+
+# ── Exploratory notebooks (kept locally, not tracked) ────────────────
+notebooks/exploratory/
