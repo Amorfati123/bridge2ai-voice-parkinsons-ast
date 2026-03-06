@@ -80,13 +80,13 @@ Generates cross-model comparison figures (ROC curves, calibration plots, per-tas
 Trains an ImageNet-pretrained ResNet-18 (adapted for single-channel spectrograms) under the same 5-fold CV protocol as the AST. Serves as a CNN baseline without self-attention. Results: OOF AUC = 0.722, F1 = 0.660.
 
 ### SpecAugment Ablation (`scripts/run_N2_specaugment_ablation.py`)
-Reruns the full fine-tuned AST pipeline with SpecAugment disabled to quantify the regularization benefit of time/frequency masking. Results: OOF AUC = 0.714, F1 = 0.732 (vs. 0.795 / 0.776 with SpecAugment).
+Reruns the full fine-tuned AST pipeline with SpecAugment disabled to quantify the regularization benefit of time/frequency masking. Results: OOF AUC = 0.714, F1 = 0.732 (vs. 0.772 / 0.769 with SpecAugment).
 
 ## Results Summary
 
 | Model | OOF AUC | OOF F1 | Notes |
 |-------|---------|--------|-------|
-| **Fine-tuned AST (PD selected tasks)** | **0.795** | **0.776** | Primary result |
+| **Fine-tuned AST (PD selected tasks)** | **0.772** | **0.769** | Primary result |
 | Fine-tuned AST (no SpecAugment) | 0.714 | 0.732 | Ablation |
 | ResNet-18 (ImageNet pretrained) | 0.722 | 0.660 | CNN baseline |
 | Frozen AST + linear probe | 0.682 | 0.712 | Feature extraction baseline |
