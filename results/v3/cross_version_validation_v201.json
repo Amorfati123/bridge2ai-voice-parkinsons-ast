@@ -1,0 +1,27 @@
+{
+  "v3_to_v2": {
+    "train_version": "v3.0.0",
+    "test_version": "v2.0.1",
+    "data_path": "/data0/b2ai-voice/2.0.1",
+    "train_n": 253,
+    "test_n": 442,
+    "test_n_pd": 61,
+    "test_n_ctrl": 381,
+    "test_recordings": 3830,
+    "selected_tasks": [
+      "Prolonged-vowel",
+      "Glides-High-to-Low",
+      "Glides-Low-to-High",
+      "Diadochokinesis-Pataka",
+      "Rainbow-Passage",
+      "Picture-description",
+      "Story-recall",
+      "Maximum-phonation-time-1"
+    ],
+    "auc": 0.6183899143754572,
+    "f1": 0.30985915492957744,
+    "recall": 0.36065573770491804,
+    "precision": 0.2716049382716049,
+    "threshold": 0.8124433755874634
+  }
+}

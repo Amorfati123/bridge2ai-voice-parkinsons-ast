@@ -1,0 +1,20 @@
+{
+  "experiment": "attention_map_analysis",
+  "task": "prolonged-vowel",
+  "model": "ast_pd_v3_fold1",
+  "n_pd": 105,
+  "n_ctrl": 147,
+  "n_patches": 1212,
+  "grid_shape": [
+    6,
+    202
+  ],
+  "avg_attn_pd_mean": 0.0007316074334084988,
+  "avg_attn_ctrl_mean": 0.0006151226698420942,
+  "diff_attn_max": 0.010767553001642227,
+  "diff_attn_min": -0.011715302243828773,
+  "n_pd_agematched": 84,
+  "n_ctrl_agematched": 45,
+  "diff_attn_am_max": 0.012135757133364677,
+  "diff_attn_am_min": -0.009546633809804916
+}

@@ -1,0 +1,51 @@
+{
+  "experiment": "dementia_confounding_analysis",
+  "note": "Age confounding analysis for dementia screening, mirroring PD analysis.",
+  "results": {
+    "full_cohort": {
+      "n": 220,
+      "n_dementia": 73,
+      "n_ctrl": 147,
+      "mean_age_dementia": 74.93150684931507,
+      "mean_age_ctrl": 44.68707482993197,
+      "age_gap": 30.244432019383098,
+      "ast_auc": 0.8950703569098872,
+      "age_only_auc": 0.9054142204827136,
+      "metadata_auc": 0.9013139502376294,
+      "sex_only_auc": 0.5182182462025906
+    },
+    "agematched_55_85": {
+      "n": 121,
+      "n_dementia": 72,
+      "n_ctrl": 49,
+      "mean_age_dementia": 75.23611111111111,
+      "mean_age_ctrl": 68.89795918367346,
+      "age_gap": 6.33815192743765,
+      "ast_auc": 0.8392857142857144,
+      "age_only_auc": 0.7267573696145125,
+      "metadata_auc": 0.71343537414966
+    },
+    "agematched_60_80": {
+      "n": 95,
+      "n_dementia": 50,
+      "n_ctrl": 45,
+      "mean_age_dementia": 72.48,
+      "mean_age_ctrl": 69.97777777777777,
+      "age_gap": 2.5022222222222297,
+      "ast_auc": 0.8093333333333332,
+      "age_only_auc": 0.5975555555555555,
+      "metadata_auc": 0.5873333333333333
+    },
+    "agematched_65_85": {
+      "n": 97,
+      "n_dementia": 66,
+      "n_ctrl": 31,
+      "mean_age_dementia": 76.5909090909091,
+      "mean_age_ctrl": 73.38709677419355,
+      "age_gap": 3.203812316715542,
+      "ast_auc": 0.8680351906158358,
+      "age_only_auc": 0.6566471163245357,
+      "metadata_auc": 0.6383186705767351
+    }
+  }
+}

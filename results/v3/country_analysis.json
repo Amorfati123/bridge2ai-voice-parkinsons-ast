@@ -1,0 +1,27 @@
+{
+  "experiment": "country_level_analysis",
+  "note": "Country (USA/Canada) used as proxy for multi-site analysis. No explicit site IDs in v3.0.0.",
+  "results": {
+    "USA": {
+      "n": 191,
+      "n_pd": 44,
+      "n_ctrl": 147,
+      "auc": 0.7790661719233148,
+      "f1": 0.5147058823529411,
+      "mean_age_pd": 69.77272727272727,
+      "mean_age_ctrl": 44.8013698630137,
+      "age_gap": 24.97135740971357,
+      "pct_male_pd": 0.6136363636363636,
+      "pct_male_ctrl": 0.47619047619047616
+    },
+    "USA_agematched_60_80": {
+      "n": 84,
+      "n_pd": 39,
+      "n_ctrl": 45,
+      "auc": 0.725925925925926,
+      "mean_age_pd": 70.92307692307692,
+      "mean_age_ctrl": 69.97777777777777,
+      "age_gap": 0.9452991452991455
+    }
+  }
+}

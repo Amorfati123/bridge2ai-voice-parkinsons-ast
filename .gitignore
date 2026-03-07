@@ -1,6 +1,8 @@
 # ── Model weights & checkpoints ──────────────────────────────────────
 *.pt
 *.npz
+# Exception: v3 result NPZs are small (~8-12KB) OOF predictions needed for reproducibility
+!results/v3/*.npz
 *_ckpts/
 fold_checkpoints/
 fold_metrics/
@@ -54,9 +56,13 @@ N1_output.log
 N2_output.log
 
 # ── Virtual environments ─────────────────────────────────────────────
+.venv/
 patchtst_env/
 
-# ── Manuscript drafts (track .tex source, not binary builds) ────────
+# ── Manuscript (tracked in Overleaf, not GitHub) ─────────────────────
+manuscript.tex
+sn-bibliography.bib
+supplementary/
 *.docx
 *.pdf
 
