@@ -93,6 +93,35 @@ To reproduce the experiments, install the dependencies with:
 pip install -r requirements.txt
 ```
 
+## Reviewer-response analyses (added May 2026)
+
+Three additional analyses were added to address reviewer comments and are appended
+to the existing `v3_PD_AST_Spectrograms.ipynb` and `v3_Dementia_AST_Spectrograms.ipynb`
+notebooks (cells `#11`–`#14`). They reuse the saved fold checkpoints and OOF
+predictions written by the original CV cell, so they re-run end-to-end in minutes
+rather than hours.
+
+| Cell | Analysis | Output |
+|---|---|---|
+| `#11` | Threshold-leakage sensitivity: leave-one-fold-out (LOFO) Youden's J + fixed=0.5 | `results/v3/lofo_and_fixed_threshold_metrics_{pd,dementia}.json` |
+| `#12` | Training-partition Youden's J (per fold; loads fold checkpoints, runs inference on training partition) | `results/v3/training_threshold_metrics_{pd,dementia}.json` |
+| `#13` | DeLong's test for paired AUC comparisons (Sun & Xu fast O(N log N)) — AST vs age-only vs metadata, full and age-restricted | included in `delong_and_propensity_{pd,dementia}.json` |
+| `#14` | 1:1 nearest-neighbor propensity-score matching on age + sex (USA-only ages 60–80; degrades gracefully when subgroup is too small, as for dementia) | `results/v3/delong_and_propensity_{pd,dementia}.json` |
+
+Cell `#7` is now idempotent: when all five fold `.pt` checkpoints and the
+`*_cv_results.npz` exist in `results/v3/`, it loads them and skips retraining. To
+re-execute either notebook end-to-end without retraining, run:
+
+```bash
+papermill notebooks/core/v3_PD_AST_Spectrograms.ipynb /tmp/v3_PD_executed.ipynb \
+    --kernel b2ai-venv --log-output --no-progress-bar
+papermill notebooks/core/v3_Dementia_AST_Spectrograms.ipynb /tmp/v3_Dem_executed.ipynb \
+    --kernel b2ai-venv --log-output --no-progress-bar
+```
+
+Each notebook completes in ~5 minutes (cells `#1`–`#6` re-process spectrograms,
+`#7` loads cached checkpoints, `#12` runs training-partition inference for 5 folds).
+
 ## Citation
 
 Please cite our work if you use this repository in your research.

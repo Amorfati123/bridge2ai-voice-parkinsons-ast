@@ -63,8 +63,13 @@ patchtst_env/
 manuscript.tex
 sn-bibliography.bib
 supplementary/
+manuscript/
 *.docx
 *.pdf
+
+# ── Python bytecode caches ───────────────────────────────────────────
+__pycache__/
+*.pyc
 
 # ── Planning / review docs ───────────────────────────────────────────
 PLAN_*.md

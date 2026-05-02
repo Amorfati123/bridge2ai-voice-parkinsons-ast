@@ -1,0 +1,75 @@
+{
+  "condition": "pd",
+  "oof_auc_threshold_independent": 0.8427672955974843,
+  "old_threshold_aggregated_OOF": 0.5025445222854614,
+  "old_F1": 0.7264150943396226,
+  "old_precision": 0.7264150943396226,
+  "old_recall": 0.7264150943396226,
+  "fold_train_thresholds": [
+    0.4322423040866852,
+    0.4431416690349579,
+    0.5077537894248962,
+    0.4897416830062866,
+    0.4944259822368622
+  ],
+  "mean_train_threshold": 0.47346108555793764,
+  "sd_train_threshold": 0.033536656246594146,
+  "new_F1_train_threshold": 0.7207207207207207,
+  "new_precision_train_threshold": 0.6896551724137931,
+  "new_recall_train_threshold": 0.7547169811320755,
+  "new_specificity_train_threshold": 0.7551020408163265,
+  "new_accuracy_train_threshold": 0.7549407114624506,
+  "confusion_matrix": {
+    "tp": 80,
+    "fp": 36,
+    "fn": 26,
+    "tn": 111
+  },
+  "per_fold_records": [
+    {
+      "fold": 1,
+      "T_train": 0.4322423040866852,
+      "n_train_parts": 202,
+      "n_val_parts": 51,
+      "val_f1": 0.8,
+      "val_recall": 0.8181818181818182,
+      "val_precision": 0.782608695652174
+    },
+    {
+      "fold": 2,
+      "T_train": 0.4431416690349579,
+      "n_train_parts": 202,
+      "n_val_parts": 51,
+      "val_f1": 0.68,
+      "val_recall": 0.8095238095238095,
+      "val_precision": 0.5862068965517241
+    },
+    {
+      "fold": 3,
+      "T_train": 0.5077537894248962,
+      "n_train_parts": 202,
+      "n_val_parts": 51,
+      "val_f1": 0.7450980392156863,
+      "val_recall": 0.9047619047619048,
+      "val_precision": 0.6333333333333333
+    },
+    {
+      "fold": 4,
+      "T_train": 0.4897416830062866,
+      "n_train_parts": 203,
+      "n_val_parts": 50,
+      "val_f1": 0.5714285714285714,
+      "val_recall": 0.47619047619047616,
+      "val_precision": 0.7142857142857143
+    },
+    {
+      "fold": 5,
+      "T_train": 0.4944259822368622,
+      "n_train_parts": 203,
+      "n_val_parts": 50,
+      "val_f1": 0.7804878048780488,
+      "val_recall": 0.7619047619047619,
+      "val_precision": 0.8
+    }
+  ]
+}
